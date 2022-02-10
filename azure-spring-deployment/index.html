@@ -1,0 +1,329 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Deploying a Spring application to Azure Cloud</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="azure-spring-deployment"
+                  title="Deploying a Spring application to Azure Cloud"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introduction" duration="0">
+        <p><strong>Last Updated:</strong> 10-02-2022</p>
+<p><strong>Status:</strong> Draft</p>
+<h2 is-upgraded><strong>Overview</strong></h2>
+<p>In this document, we will cover how to deploy a Springboot project on Azure Cloud. </p>
+<p>Note that a limitation of deploying to Azure is that the Springboot project must be compiled on either <strong>Java version 8 or 11</strong> only.</p>
+<p>It is important to stop your resources when not in use, or delete them when you no longer need them, as Microsoft will continue to bill you if the resources are still running or taking up space.</p>
+<h2 is-upgraded><strong>Java Version</strong></h2>
+<p>The JRE of the Springboot needs to be either <strong>Java version 8 or 11</strong>. To check what version you have installed, go to <strong>C:\Program Files\Java</strong> . </p>
+<p>You can download either version here if you do not have it installed: <a href="https://www.oracle.com/java/technologies/downloads/archive/" target="_blank">https://www.oracle.com/java/technologies/downloads/archive/</a> </p>
+<p>To change the Java version, see steps below:</p>
+<ol type="1" start="1">
+<li>Right-click on the project, select <strong>Properties</strong></li>
+<li>In the panel that appears, select <strong>Java Compiler</strong></li>
+</ol>
+<p class="image-container"><img style="width: 385.66px" src="img\\2f671201dde5b344.png"></p>
+<ol type="1" start="3">
+<li>If the Java version is NOT 1.8(This is the same as Java 8) or 11, then uncheck the <strong>Use compliance....</strong></li>
+<li>Select either Java 1.8 or 11</li>
+<li>Click Apply and Close.</li>
+<li>Check that the project JRE has changed to the appropriate version</li>
+</ol>
+<p class="image-container"><img style="width: 465.00px" src="img\\327d7f1090b909ad.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Getting an Azure Student Account" duration="2">
+        <ol type="1" start="1">
+<li>Visit <a href="https://azure.microsoft.com/en-us/free/students/" target="_blank">https://azure.microsoft.com/en-us/free/students/</a>and click the button <strong>[ Activate Now &gt; ]</strong>. </li>
+<li>Sign in using your RP account 19NNNNNN@myrp.edu.sg and password.  You will be presented a page where you can enter your personal particulars. </li>
+<li>Do the following data inputs under <strong>About you </strong></li>
+</ol>
+<ol type="1" start="1">
+<li><strong>Country/Region</strong>: Select Singapore. </li>
+<li><strong>First name</strong>:  </li>
+<li><strong>Last name</strong>: </li>
+<li><strong>Email address</strong>: Enter the same RP email address in Step 2 </li>
+<li><strong>Phone</strong>: Enter your 8 digit mobile phone </li>
+<li>Click on the button <strong>[ Next ] </strong></li>
+</ol>
+<ol type="1" start="4">
+<li>Do the following data inputs under Agreement </li>
+</ol>
+<ol type="1" start="1">
+<li>Check the two check boxes. </li>
+<li>Click on the button <strong>[ Sign up ] </strong></li>
+</ol>
+<ol type="1" start="5">
+<li>You will be redirected the Welcome to Microsoft Azure page.  Click on the button <strong>[ Maybe later ]</strong>. </li>
+</ol>
+<ol type="1" start="6">
+<li>From the menu at the  top-right corner, click <strong>Home </strong></li>
+<li>Click <img style="width: 41.00px" src="img\\e9a9cf348abfb383.jpeg"> and you should see a new subscription created for you. </li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\613222274375f82f.jpeg"> </p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Creating Azure Spring Cloud" duration="5">
+        <ol type="1" start="1">
+<li>Once logged into Azure portal, you will see the screenshot similar to below. </li>
+</ol>
+<p class="image-container"><img alt="The domain of the requested iframe (lh6.googleusercontent.com) has not been whitelisted." style="width: 624.40px" src="img\\b3e99a48184252fc.png"></p>
+<ol type="1" start="2">
+<li>Click <strong>Create a resource</strong></li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\800556fe461af38d.png"></p>
+<ol type="1" start="3">
+<li>In the <strong>Create a resource page</strong>, enter <strong>Azure Spring Cloud</strong> in the search bar and select <strong>Azure Spring Cloud.</strong></li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\db1071f39eeb3d5.png"></p>
+<ol type="1" start="4">
+<li>Click <strong>Create</strong></li>
+</ol>
+<p class="image-container"><img style="width: 290.00px" src="img\\716619553dc7d81f.png"></p>
+<ol type="1" start="5">
+<li>In the configurations that comes up in <strong>Project Details</strong>, </li>
+</ol>
+<ol type="1" start="1">
+<li>Under <strong>Subscription</strong>, select <strong>Azure for Students</strong></li>
+<li>Under <strong>Resource group</strong>, click <strong>Create new</strong> and enter <strong>c372</strong> as the Name, click <strong>OK</strong></li>
+</ol>
+<p><em>(If the name is not available, include your student ID)</em></p>
+<p class="image-container"><img alt="The domain of the requested iframe (lh3.googleusercontent.com) has not been whitelisted." style="width: 624.40px" src="img\\5d4c0fdbc54acadc.png"></p>
+<p>6. In <strong>Service Details</strong>,</p>
+<ol type="1" start="3">
+<li>Under <strong>Name</strong>, enter <strong>c372projects</strong></li>
+</ol>
+<p><em>(If the name is not available, include your student ID)</em></p>
+<ol type="1" start="4">
+<li>Under <strong>Region</strong>, select <strong>East US</strong></li>
+</ol>
+<p class="image-container"><img alt="The domain of the requested iframe (lh6.googleusercontent.com) has not been whitelisted." style="width: 787.07px" src="img\\77147f21ba446936.png"></p>
+<p>7. Click <strong>Review and Create</strong></p>
+<p class="image-container"><img alt="The domain of the requested iframe (lh6.googleusercontent.com) has not been whitelisted." style="width: 624.40px" src="img\\77147f21ba446936.png"></p>
+<p>8. The resource group will take a while to be created and deployed. You will receive a notification once it is done. </p>
+<p class="image-container"><img alt="The domain of the requested iframe (lh5.googleusercontent.com) has not been whitelisted." style="width: 624.00px" src="img\\97d0c256320ff47d.png"></p>
+<p>9. Once completed, you should see this a similar screen to below. </p>
+<p class="image-container"><img alt="The domain of the requested iframe (lh4.googleusercontent.com) has not been whitelisted." style="width: 574.33px" src="img\\7416ac9b22826c83.png"></p>
+<p>Note: In this page, you can also delete the instance when not in use. </p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Creating MySQL Database" duration="10">
+        <ol type="1" start="1">
+<li>Go back to Azure portal homepage. </li>
+</ol>
+<p class="image-container"><img alt="The domain of the requested iframe (lh6.googleusercontent.com) has not been whitelisted." style="width: 624.40px" src="img\\b3e99a48184252fc.png"></p>
+<ol type="1" start="2">
+<li>Click <strong>Create a resource</strong></li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\ccb845b4607cf483.png"></p>
+<ol type="1" start="3">
+<li>In the <strong>Create a resource page</strong>, enter <strong>Mysql</strong> in the search bar and select <strong>Azure Database for MySQL</strong></li>
+</ol>
+<p class="image-container"><img alt="The domain of the requested iframe (lh5.googleusercontent.com) has not been whitelisted." style="width: 624.40px" src="img\\32692670355a1d13.png"></p>
+<ol type="1" start="4">
+<li>Click <strong>Create</strong></li>
+</ol>
+<p class="image-container"><img alt="The domain of the requested iframe (lh3.googleusercontent.com) has not been whitelisted." style="width: 486.40px" src="img\\806aaf7c9587248b.png"></p>
+<ol type="1" start="5">
+<li>In the page below, select <strong>Create</strong> for the <strong>Flexible server </strong></li>
+</ol>
+<p class="image-container"><img alt="The domain of the requested iframe (lh3.googleusercontent.com) has not been whitelisted." style="width: 803.30px" src="img\\cab92aaddc787507.png"></p>
+<ol type="1" start="6">
+<li>In the <strong>Basics</strong> tab, in <strong>Project Details</strong>, </li>
+</ol>
+<ol type="1" start="1">
+<li>Under <strong>Subscription</strong>, select <strong>Azure for Students</strong></li>
+<li>Under <strong>Resource group</strong>, select <strong>c372</strong></li>
+</ol>
+<p class="image-container"><img style="width: 560.53px" src="img\\5e07962e59763393.png"></p>
+<p>7. In the <strong>Basics</strong> tab, in <strong>Server Details</strong>, </p>
+<ol type="1" start="3">
+<li>Under <strong>Server name</strong>, enter <strong>c372mysql</strong></li>
+</ol>
+<p><em>(If the name is not available, include your student ID)</em></p>
+<ol type="1" start="4">
+<li>Under <strong>Region</strong>, select <strong>East US</strong></li>
+<li>Under <strong>Workload type</strong>, select <strong>Development</strong></li>
+<li>Under <strong>Compute + storage</strong>, leave it if it is similar to the screenshot. Otherwise, click on <strong>configure server</strong> to select the lowest setting. </li>
+<li>Under <strong>Availability</strong>, leave it as <strong>No preference</strong></li>
+<li>Under <strong>MySQL version</strong>, select <strong>5.7</strong> (Note, we are not using version 8 as workbench will only work with version 5)</li>
+</ol>
+<p class="image-container"><img style="width: 466.40px" src="img\\2687159c9b127f3e.png"></p>
+<p>8. In the <strong>Basics</strong> tab, in <strong>High Availability</strong> and <strong>Administrator</strong> account:</p>
+<ol type="1" start="9">
+<li>Do not check <strong>Enable high availability</strong></li>
+<li>Create an admin username and password. (Note this down)</li>
+</ol>
+<p class="image-container"><img style="width: 575.47px" src="img\\149c3ac3e77a50ac.png"></p>
+<p>9. In the <strong>Networking</strong> tab, </p>
+<ol type="1" start="11">
+<li>Under <strong>Network connectivity</strong>, select <strong>Public access</strong></li>
+<li>Under <strong>Firewall rules</strong>, check <strong>Allow public access ....</strong></li>
+<li>Under <strong>Firewall rules</strong>, click <strong>Add current client IP</strong></li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\2a65230105b0e408.png"></p>
+<p>10. Click <strong>Review and create</strong></p>
+<p>11. After the settings are validated, click <strong>Create</strong></p>
+<p>12. Creation and Deployment of the database will take a while. You will receive a notification once deployed.</p>
+<p>13. Once deployed, go to the database resource to get the server name. Do make a note of it as you will need to use it later. </p>
+<p class="image-container"><img style="width: 624.00px" src="img\\48772f4c4d9d69f4.png"></p>
+<p>Note: In this page you can stop or delete the database when not in use</p>
+<p>14. Start MySQL Workbench, click on the + symbol to create a new connection</p>
+<p class="image-container"><img style="width: 621.00px" src="img\\4ef56432996434c0.png"></p>
+<p>15. Enter connection details similar as shown. </p>
+<ol type="1" start="1">
+<li>Under <strong>Hostname</strong>, use the database hostname from step 13</li>
+<li>Under <strong>username</strong>, use the username that you set.</li>
+<li>The password will be prompted</li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\2759f3924903b7ee.png"></p>
+<p>16. Click <strong>Test Connection</strong> to check that the connection works.  (Note, this may not work if using RP network)</p>
+<p>17. Click <strong>OK </strong></p>
+<p>18. You can use workbench as per how you normally do it. </p>
+<p>19. Create a database named <strong>c372</strong> (Or the same name as you use in the local MySQL)</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Preparing Springboot project for deployment" duration="1">
+        <p>In pom.xml, you should remove dependencies that are not required when deploying to reduce the size of the upload. For e.g. <code>spring-boot-devtools</code> is only helpful during development.</p>
+<ol type="1" start="1">
+<li>In <strong>application.properties</strong>, you will need to update the mysql database host. </li>
+<li>Comment the existing configurations for mysql. </li>
+</ol>
+<p>Note: </p>
+<ul>
+<li>When you are working on localhost, you will need to switch back to this</li>
+<li><strong>Use the database hostname, username and password from the previous section</strong></li>
+</ul>
+<p class="image-container"><img style="width: 624.00px" src="img\\e944c1de5f52e94e.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Deploy Springboot project" duration="10">
+        <p>Before you start this section, you will need to: </p>
+<ul>
+<li>Install Azure CLI, get it here: <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli" target="_blank">https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli</a> </li>
+<li>Ensure that Azure MySQL is started</li>
+</ul>
+<ol type="1" start="1">
+<li>Start Windows PowerShell and change directory to your project folder. </li>
+</ol>
+<ol type="1" start="1">
+<li>To find your project folder, in Eclipse, right click on the project, select Properties</li>
+<li>You will see the location of your code, copy that location</li>
+<li>Use the cd command in PowerShell to change directory to that folder</li>
+</ol>
+<ol type="1" start="2">
+<li>In PowerShell, ensure that you are inside the project folder and type the following command to package the project into a JAR file: </li>
+</ol>
+<p><code>mvn clean package -DskipTests</code></p>
+<ol type="1" start="3">
+<li>In Eclipse, refresh your project, you should see the JAR file created. </li>
+</ol>
+<p>Note the name of the JAR file as you will need to use it later.</p>
+<p class="image-container"><img style="width: 274.00px" src="img\\6392728374df7e56.png"></p>
+<ol type="1" start="4">
+<li>In Powershell, login to azure by executing the command: </li>
+</ol>
+<p><code>az login </code></p>
+<ol type="1" start="5">
+<li>You will be prompted to login on a web browser, use the same login details as you do for the Azure Portal.</li>
+</ol>
+<ol type="1" start="6">
+<li>Once logged in, you will see the output similar to below:</li>
+</ol>
+<p class="image-container"><img alt="The domain of the requested iframe (lh4.googleusercontent.com) has not been whitelisted." style="width: 624.00px" src="img\\3c23ad92dba1370b.png"></p>
+<ol type="1" start="7">
+<li>To create an app, use the command below:</li>
+</ol>
+<p><code>az spring-cloud app create -n <app name> -s <service name> -g <resource group name> --assign-endpoint true --runtime-version=Java_11</code></p>
+<p>Note:</p>
+<ul>
+<li>Replace &lt;app name&gt; with something suitable such as lesson12</li>
+<li>Replace &lt;service name&gt; with the name of the Azure Spring Cloud created earlier in <strong>Section B</strong>. In this document, we called it c372projects.</li>
+<li>Replace &lt;resource group name&gt; with the resource group created earlier in <strong>Section B</strong> In this document, we called it c372.</li>
+<li>If your project is compiled with Java 8, then omit <code>--runtime-version=Java_11</code></li>
+</ul>
+<ol type="1" start="8">
+<li>To deploy the app, use the command below:</li>
+</ol>
+<p><code>az spring-cloud app deploy -n <app name> -s <service name> -g <resource group name> --artifact-path target/<JAR file name> --verbose</code></p>
+<p>Note:</p>
+<ul>
+<li>Replace &lt;app name&gt; with the name of the app</li>
+<li>Replace &lt;service name&gt; with the name of the Azure Spring Cloud created earlier in <strong>Section B</strong>. In this document, we called it c372projects.</li>
+<li>Replace &lt;resource group name&gt; with the resource group created earlier in <strong>Section B</strong> In this document, we called it c372.</li>
+<li>Replace JAR file name with the actual JAR name found in the project target folder in Eclipse. E.g. LP04-0.0.1-SNAPSHOT.jar</li>
+</ul>
+<ol type="1" start="9">
+<li>To check the logs in case of any issue, use the command:</li>
+</ol>
+<p><code>az spring-cloud app logs -<app name> -s <service name> -g <resource group name></code></p>
+<p>Note:</p>
+<ul>
+<li>Replace &lt;app name&gt; with the name of the app</li>
+<li>Replace &lt;service name&gt; with the name of the Azure Spring Cloud created earlier in <strong>Section B</strong>. In this document, we called it c372projects.</li>
+<li>Replace &lt;resource group name&gt; with the resource group created earlier in <strong>Section B</strong> In this document, we called it c372.</li>
+</ul>
+<ol type="1" start="10">
+<li>Once deployed, go to the Azure spring cloud service you created, select <strong>Apps. </strong>You should see the app you created there.</li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\9075f291fae63ce6.png"></p>
+<ol type="1" start="11">
+<li>Click on the app you created</li>
+</ol>
+<ol type="1" start="12">
+<li>Click on the URL generated</li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\16293f222195f66e.png"></p>
+<p>Note: In this page, you can also stop or delete the instance when not in use. </p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Deleting Resources" duration="2">
+        <p>It is important to stop your resources when not in use, or delete them when you no longer need them, as Microsoft will continue to bill you if the resources are still running or taking up space. </p>
+<p>To easily delete everything, you can go to the resource group that you have grouped your resources under, and click Delete resource group. All related resources will be deleted.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\2e3f5a49a1e89400.png"></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
