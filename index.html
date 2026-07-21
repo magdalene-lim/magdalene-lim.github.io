@@ -2,116 +2,277 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-  <!-- FontAwesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
-  <title>Hello, world!</title>
+  <meta name="description" content="Projects and codelabs by Magdalene Lim">
+  <title>Magdalene Lim | Projects and Codelabs</title>
   <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg-top: #f3f8ff;
+      --bg-bottom: #fef6e7;
+      --text: #1d2b44;
+      --muted: #4a5f85;
+      --surface: rgba(255, 255, 255, 0.74);
+      --surface-border: rgba(255, 255, 255, 0.8);
+      --shadow: rgba(25, 54, 106, 0.18);
+      --accent: #0e8c93;
+      --accent-2: #f59f00;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Outfit", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at -10% -15%, #d6f0ff 0%, transparent 60%),
+        radial-gradient(1000px 600px at 110% 20%, #ffe0b8 0%, transparent 57%),
+        linear-gradient(160deg, var(--bg-top), var(--bg-bottom));
+      overflow-x: hidden;
+    }
+
+    .page-wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    .hero {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      box-shadow: 0 16px 46px -30px var(--shadow);
+      backdrop-filter: blur(8px);
+      animation: fadeUp 700ms ease both;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: linear-gradient(140deg, rgba(14, 140, 147, 0.22), rgba(245, 159, 0, 0.18));
+      z-index: -1;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 0.9rem;
+      font-family: "Space Mono", monospace;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.7rem, 4vw, 2.6rem);
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin-top: 0.75rem;
+      margin-bottom: 0;
+      color: var(--muted);
+      max-width: 56ch;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .section-title {
+      margin: 2.2rem 0 1rem;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #24375a;
+      letter-spacing: 0.01em;
+      animation: fadeUp 700ms ease both;
+      animation-delay: 120ms;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      position: relative;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 1rem;
+      padding: 1.1rem 1.1rem 1.2rem;
+      box-shadow: 0 12px 24px -20px var(--shadow);
+      transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+      animation: fadeUp 700ms ease both;
+    }
+
+    .card:nth-child(1) {
+      animation-delay: 170ms;
+    }
+
+    .card:nth-child(2) {
+      animation-delay: 240ms;
+    }
+
+    .card:nth-child(3) {
+      animation-delay: 310ms;
+    }
+
+    .card:hover,
+    .card:focus-visible {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 40px -24px rgba(16, 51, 112, 0.35);
+      border-color: rgba(14, 140, 147, 0.45);
+      outline: none;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .icon {
+      width: 2.3rem;
+      height: 2.3rem;
+      border-radius: 0.7rem;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(140deg, rgba(14, 140, 147, 0.2), rgba(245, 159, 0, 0.17));
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a4252;
+      font-family: "Space Mono", monospace;
+    }
+
+    .label {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .desc {
+      margin: 0.75rem 0 0;
+      color: var(--muted);
+      font-size: 0.96rem;
+      line-height: 1.5;
+    }
+
+    .pill {
+      display: inline-block;
+      margin-top: 0.95rem;
+      padding: 0.26rem 0.6rem;
+      font-size: 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(14, 140, 147, 0.28);
+      color: #2b5666;
+      background: rgba(14, 140, 147, 0.08);
+      font-family: "Space Mono", monospace;
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.95rem;
+      color: #41577d;
+      animation: fadeUp 700ms ease both;
+      animation-delay: 380ms;
+    }
+
+    .mailto {
+      color: #0f6f76;
+      text-underline-offset: 2px;
+      text-decoration-thickness: 2px;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding: 1.35rem;
+      }
+
+      .page-wrap {
+        padding-top: 1.2rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <div class="container">
-    <header class="blog-header py-3">
-      <div class="row flex-nowrap justify-content-between align-items-center">
-        <div class="col-2 pt-1">
-          <!--<a class="link-secondary" href="#">Subscribe</a>-->
+  <main class="page-wrap">
+    <section class="hero" aria-labelledby="home-title">
+      <span class="tag">magdalene-lim.github.io</span>
+      <h1 id="home-title">Projects, Simulators, and Codelabs for Republic Polytechnic Diploma in Financial Technology Students</h1>
+      <p class="subtitle">
+        A curated launchpad for Republic Polytechnic Diploma in Financial Technology students to explore learning experiments and interactive demos.
+      </p>
+    </section>
+
+    <h2 class="section-title">Featured Pages for RP FinTech Students</h2>
+    <section class="grid" aria-label="Featured pages">
+      <a class="card" href="azure-spring-deployment/">
+        <div class="card-header">
+          <div class="icon">AS</div>
+          <span class="pill">Codelab</span>
         </div>
-        <div class="col-6 text-center">
-          <a class="fs-1 text-dark text-decoration-none"
-            href="https://magdalene-lim.github.io/">magdalene-lim.github.io</a>
+        <p class="label">Azure Spring Deployment</p>
+        <p class="desc">Step-by-step guide for deploying a Spring project on Azure Portal.</p>
+      </a>
+
+      <a class="card" href="https://magdalene-lim.github.io/blockchain-simulator/">
+        <div class="card-header">
+          <div class="icon">BC</div>
+          <span class="pill">Simulator</span>
         </div>
-        <div class="col-2 d-flex justify-content-end align-items-center">
-          <!--<a class="link-secondary" href="#" aria-label="Search">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"></circle><path d="M21 21l-5.2-5.2"></path></svg>
-                        </a>
-                        <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>-->
+        <p class="label">Blockchain Simulator</p>
+        <p class="desc">Explore blocks, hashes, and chain integrity with an interactive visual simulator.</p>
+      </a>
+
+      <a class="card" href="https://magdalene-lim.github.io/crypto-wallet-simulator/">
+        <div class="card-header">
+          <div class="icon">CW</div>
+          <span class="pill">Simulator</span>
         </div>
-      </div>
-    </header>
-    <div class="nav-scroller py-1 mb-2">
-      <nav class="nav d-flex justify-content-between">
-        <a class="p-2 link-secondary" href="#">Resources</a>
-      </nav>
-    </div>
-    <div class="fs-3 mb-3">RP Student Codelabs</div>
-    <!--    <div class="card" style="width: 18rem;">
-                        <img src="Azure-Spring-Cloud.png" class="card-img-top" alt="Azure-Spring-Cloud">
-                        <div class="card-body">
-                                <a href="Azure_Spring_Deployment_Guide.pdf" class="text-decoration-none">
-                          <h5 class="card-title">Azure-Spring Deployment Guide</h5>
-                          <p class="card-text">Deploying a Spring project on Azure Portal</p>
-                          </a>
-                        </div>
-                      </div> -->
+        <p class="label">Crypto Wallet Simulator</p>
+        <p class="desc">Practice wallet actions, transfers, and transaction flow in a guided sandbox.</p>
+      </a>
+    </section>
 
-    <!-- <div class="card" style="width: 18rem;">
-      <div class="card-body d-flex align-items-center">
-        <div class="icon">
-          <i class="fas fa-file-pdf fs-3"></i>
-        </div>
-        <div class="pl-6 data">
-          <a href="Azure_Spring_Deployment_Guide.pdf" class="text-decoration-none">
-            <p class="m-3">Deploying a Spring project on Azure Portal</p>
-          </a>
-        </div>
-      </div>
-    </div> -->
-
-
-      <div class="card" style="width: 30rem;">
-      <div class="card-body d-flex align-items-center">
-        <div class="icon">
-          <i class="fas fa-code fs-3"></i>
-        </div>
-        <div class="pl-6 data">
-          <a href="azure-spring-deployment/" class="text-decoration-none">
-            <p class="m-3">Deploying a Spring project on Azure Portal</p>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" style="width: 30rem;">
-      <div class="card-body d-flex align-items-center">
-        <div class="icon">
-          <i class="fas fa-code fs-3"></i>
-        </div>
-        <div class="pl-6 data">
-          <a href="" class="text-decoration-none">
-            <p class="m-3">Creating a Springboot project</p>
-          </a>
-        </div>
-      </div>
-    </div>
-  <div>
-   <a href="mailto:magdalene_lim@rp.edu.sg">Report issues</a>
-  </div>
-
-
-  </div>
-
-
-  <!-- Optional JavaScript; choose one of the two! -->
-
-  <!-- Option 1: Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"></script>
-
-  <!-- Option 2: Separate Popper and Bootstrap JS -->
-  <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    -->
+    <footer>
+      See an issue or want to suggest a page?
+      <a class="mailto" href="mailto:magdalene_lim@rp.edu.sg">Report it here</a>.
+    </footer>
+  </main>
 </body>
 
 </html>
