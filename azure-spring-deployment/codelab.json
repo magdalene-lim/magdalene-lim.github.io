@@ -1,0 +1,27 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-02-10T09:54:32Z",
+  "id": "azure-spring-deployment",
+  "duration": 30,
+  "title": "Deploying a Spring application to Azure Cloud",
+  "authors": "Magdalene Lim",
+  "summary": "In this codelab,  you will learn how to deploy a Springboot project on Azure Cloud",
+  "source": "1j5pe_sSxC7lvz8l_i0qoH6DU0A-Me59Z_dnY6lMaUL0",
+  "theme": "web",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "web"
+  ],
+  "tags": [
+    "azure",
+    "mysql",
+    "spring",
+    "springboot"
+  ],
+  "url": "azure-spring-deployment"
+}
