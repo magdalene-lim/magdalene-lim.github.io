@@ -1,7 +1,7 @@
 
 <!doctype html>
 
-<html>
+<html class="codelab-fallback">
 <head>
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
@@ -107,30 +107,6 @@
       }
     }
   </style>
-  <script>
-    document.documentElement.classList.add("codelab-fallback");
-
-    window.addEventListener("load", function () {
-      if (window.customElements && customElements.get("google-codelab")) {
-        document.documentElement.classList.remove("codelab-fallback");
-        return;
-      }
-
-      var retries = 0;
-      var timer = setInterval(function () {
-        if (window.customElements && customElements.get("google-codelab")) {
-          document.documentElement.classList.remove("codelab-fallback");
-          clearInterval(timer);
-          return;
-        }
-
-        retries += 1;
-        if (retries >= 20) {
-          clearInterval(timer);
-        }
-      }, 250);
-    });
-  </script>
 </head>
 <body>
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
