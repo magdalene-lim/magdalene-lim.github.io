@@ -1,7 +1,7 @@
 {
   "environment": "web",
   "format": "html",
-  "prefix": "https://storage.googleapis.com",
+  "prefix": "https://storage.googleapis.com/claat-public",
   "mainga": "UA-49880327-14",
   "updated": "2022-02-10T09:54:32Z",
   "id": "azure-spring-deployment",
